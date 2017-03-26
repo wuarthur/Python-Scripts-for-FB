@@ -1,7 +1,7 @@
 import facebook
 import json
 import time
-import sentiment_topic_analysis
+import sentiment_analysis
 
 token = 'EAAX4JJPK6jkBABWBzCB3UsVbT2vqdFLGMCRqIS2Q2CDZCQFW6bRafFc9hxJgWH28uX5X96mdWqZBIRoIwZBNkAZA2VfiYX2lhFq4rMlGVA2PjFU94B9ZAZCBioZA4aXDoqN2VzKj73vBU299aiIOt5BSgz3W22JKbqVyKi235aiMxN8GqpA2l0iTNCEsAIgE58ZD'
 pattern = '%Y %m %d %H:%M:%S'
@@ -42,7 +42,7 @@ def PostComments():
 
 def GetScore():
     for post in AllPosts:
-        score = sentiment_topic_analysis.GetAnaly(post.message)
+        score = sentiment_analysis.getTextAnalysis(post.message)
         post.score = score
 
 
