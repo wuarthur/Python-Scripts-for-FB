@@ -10,10 +10,13 @@ attachment =  {
     'picture': 'https://www.example.com/thumbnail.jpg'
 }
 
-graph.put_wall_post(message='Check this out...', attachment=attachment)
-
-profile = graph.get_object("1287650764586547")
+#graph.put_wall_post(message='Check this out...', attachment=attachment)
+#1031262963672150
+profile = graph.get_object("1031262963672150")
 posts = graph.get_connections(profile['id'], 'posts')
 
-print(posts)
+graph.put_comment(object_id='1031262963672150_1032927990172314', message='Great post...')
+
+
+#print(posts)
 
