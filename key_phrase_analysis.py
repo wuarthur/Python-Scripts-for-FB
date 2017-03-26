@@ -1,7 +1,7 @@
 import http.client, urllib.request, urllib.parse, urllib.error, base64, json, requests
 
 
-def GetAnaly(_input):
+def getKeyPhrases(_input):
     headers = {
         # Request headers
         'Ocp-Apim-Subscription-Key': '8f75c4b05dfd44de81b80ea5b5928a37',
@@ -24,12 +24,6 @@ def GetAnaly(_input):
       ]
     }
 
-    url = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment'
+    url = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases'
     r = requests.post(url, data=json.dumps(body), headers=headers)
-    data = r.text
-    data = data.split('"score"')
-    data = data[1]
-    data = data[1:5]
-    data = float(data) * 100
-    return int(data)
-
+    return json.loads(r.text)["documents"][0]["keyPhrases"]

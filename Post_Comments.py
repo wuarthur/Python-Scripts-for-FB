@@ -1,7 +1,7 @@
 import facebook
 import json
 import time
-import sentiment_topic_analysis
+import sentiment_analysis
 import Scrape
 
 DATE = open('Dates.txt', 'r').read()
@@ -47,7 +47,7 @@ def PostComments():
 
 def GetScore():
     for post in AllPosts:
-        score = sentiment_topic_analysis.GetAnaly(post.message)
+        score = sentiment_analysis.getTextAnalysis(post.message)
         post.score = score
 
 def StoreDateTimes():

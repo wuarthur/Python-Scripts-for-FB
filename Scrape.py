@@ -19,5 +19,7 @@ def GetQuotes(Category):
         pageNum += 1
 
 
-    return quotes[randint(0, len(quotes))] + "\n" + "-Come talk to me!!"
+    comment = "You seem a little down, here's a positive quote to lift your spirits:" + "\n" + "\n" + "\""
+    comment += quotes[randint(0, len(quotes))] + "\"" + "\n" + "\n" + "If you need someone to talk to, feel free to message me!"
+    return comment
 GetQuotes("")
