@@ -26,14 +26,5 @@ def GetQuotes(Category):
 
     comment = phrases[randint(0,4)] + "\n" + "\n" + "\""
     comment += quotes[randint(0, len(quotes)-1)] + "\"" + "\n" + "\n" + "If you need someone to talk to, feel free to message me!"
-    print(comment)
-    print(comment)
-    print(comment)
-    print(comment)
-    print(comment)
-    print(comment)
-    print(comment)
-    print(comment)
-    print (comment)
     return comment
 GetQuotes("")

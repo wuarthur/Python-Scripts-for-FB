@@ -4,10 +4,11 @@ import time
 import sentiment_analysis
 import Scrape
 import key_phrase_analysis
+import ConnectToDB
 
 KEY_PHRASES = ["struggle","midterm", "final", "exam"]
-DATE = open('Dates.txt', 'r').read()
 pageID = '1687756434851039'
+DATE = ConnectToDB.Retrieve(pageID)
 token = 'EAAX4JJPK6jkBACEcJH4S63EeVwE0pOgafCfkU3NocsSVpDncWNz896AmtrXhYhYXIdCwDPtiHCeaPkE9xjNDOjuduSZBM07TSou2c6Mwo1lZBq5E6RVipqV1CQ7EhdRAGWH8ZByEjwZAeJO01xjbi3qNtnSBZBEWMXAGuBfKaa14OjeQDwZAisE2RjB1FWuWUZD'
 pattern = '%Y %m %d %H:%M:%S'
 AllPosts = [];
@@ -58,6 +59,7 @@ def GetScore():
 def StoreDateTimes():
     if len(AllPosts)>0:
         date = AllPosts[0].time
+        ConnectToDB.Store(pageID,date)
         with open("Dates.txt", "w") as fin:
             pass
             fin.write(date)
@@ -79,6 +81,7 @@ PopulatePostClass(posts)
 GetScore()
 PostComments()
 StoreDateTimes()
+
 
 #graph.put_comment(object_id='1031262963672150_1032927990172314', message='Great post...')
 
