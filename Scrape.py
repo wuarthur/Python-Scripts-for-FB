@@ -1,3 +1,5 @@
+from random import randint
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -15,6 +17,7 @@ def GetQuotes(Category):
         for quote in quoteTags:
             quotes.append(quote.text)
         pageNum += 1
-        return quotes
 
+
+    return quotes[randint(0, len(quotes))] + "\n" + "-Come talk to me!!"
 GetQuotes("")
