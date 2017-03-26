@@ -32,7 +32,3 @@ def getTextAnalysis(_input):
     data = data[1:5]
     data = float(data) * 100
     return int(data)
-<<<<<<< HEAD:sentiment_topic_analysis.py
-
-=======
->>>>>>> 64033d12df94ae398c51892ec5a36e98fd1a264b:sentiment_analysis.py
