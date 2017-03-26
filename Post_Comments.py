@@ -11,7 +11,8 @@ class _Post:
         self.id = id
         self.time = time
         self.message = message
-        self.score = -1.0
+        self.score = 2
+        self.category = ''
 
 def parseResponse(_posts):
     jsonString = str(_posts)
