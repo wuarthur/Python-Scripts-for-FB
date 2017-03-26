@@ -3,10 +3,12 @@ import json
 import time
 import sentiment_analysis
 import Scrape
+import key_phrase_analysis
 
+KEY_PHRASES = ["struggle","midterm", "final", "exam"]
 DATE = open('Dates.txt', 'r').read()
 pageID = '1687756434851039'
-token = 'EAAX4JJPK6jkBAHhWjeO6vK1FB70aFUsYMPZBPdpQap74DYt5SNdn0Q8ypU6rfCZB25KUyT4usi7UG8zB4QY6bZAMtBZAkdt3YDIn2XTisTvQM0jTbsgZB3bYulJ7t6i3wQiT8VaaXhXhScwosYHZBcb2zDl9WLbc8YnpcOuGcjZCXcXRGOnJpmzRkKADGi0mW0ZD'
+token = 'EAAX4JJPK6jkBACEcJH4S63EeVwE0pOgafCfkU3NocsSVpDncWNz896AmtrXhYhYXIdCwDPtiHCeaPkE9xjNDOjuduSZBM07TSou2c6Mwo1lZBq5E6RVipqV1CQ7EhdRAGWH8ZByEjwZAeJO01xjbi3qNtnSBZBEWMXAGuBfKaa14OjeQDwZAisE2RjB1FWuWUZD'
 pattern = '%Y %m %d %H:%M:%S'
 AllPosts = [];
 class _Post:
@@ -41,6 +43,9 @@ def PopulatePostClass(_posts):
 def PostComments():
     for post in AllPosts:
         if post.score < 40:
+            keyphrase=key_phrase_analysis.getKeyPhrases(post.message)
+            for key in keyphrase:
+                print('')
             graph.put_comment(object_id=post.id, message=Scrape.GetQuotes(post.category) )
 
 
