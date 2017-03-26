@@ -33,4 +33,3 @@ def GetAnaly(_input):
     data = float(data) * 100
     return int(data)
 
-print(GetAnaly("gay"))

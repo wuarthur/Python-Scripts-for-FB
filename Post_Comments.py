@@ -4,8 +4,9 @@ import time
 import sentiment_topic_analysis
 import Scrape
 
+DATE = open('Dates.txt', 'r').read()
 pageID = '1687756434851039'
-token = 'EAAX4JJPK6jkBACzZAkDVZBZAJHKl6Il5Ly8cAtcVJym0JSwtBXLvptHLgGeZCm6AreELWkcgXqbZCdxlqhpy06IwEUXyUt1dqb3IRE5CdYZBVgB7P7r3Qy6KHx9ytbtiOVI5JDnG5L6bruwWpL6vxfZAqTcXrAEd8oAZAjyHiIQ43KSZC7QtZCxP988wK57JwtDswZD'
+token = 'EAAX4JJPK6jkBAHhWjeO6vK1FB70aFUsYMPZBPdpQap74DYt5SNdn0Q8ypU6rfCZB25KUyT4usi7UG8zB4QY6bZAMtBZAkdt3YDIn2XTisTvQM0jTbsgZB3bYulJ7t6i3wQiT8VaaXhXhScwosYHZBcb2zDl9WLbc8YnpcOuGcjZCXcXRGOnJpmzRkKADGi0mW0ZD'
 pattern = '%Y %m %d %H:%M:%S'
 AllPosts = [];
 class _Post:
@@ -31,7 +32,7 @@ def PopulatePostClass(_posts):
     jsonObject = parseResponse(_posts)
     final = len(jsonObject)
     num=0
-    while num<final:
+    while num<final and jsonObject[num]['created_time'] != DATE:
         POST = _Post(jsonObject[num]['id'],jsonObject[num]['created_time'],jsonObject[num]['message'])
         AllPosts.append(POST)
         num += 1
@@ -49,6 +50,13 @@ def GetScore():
         score = sentiment_topic_analysis.GetAnaly(post.message)
         post.score = score
 
+def StoreDateTimes():
+    if len(AllPosts)>0:
+        date = AllPosts[0].time
+        with open("Dates.txt", "w") as fin:
+            pass
+            fin.write(date)
+
 
 
 graph = facebook.GraphAPI(access_token=token, version='2.7')
@@ -65,6 +73,7 @@ posts = graph.get_connections(profile['id'], 'posts')
 PopulatePostClass(posts)
 GetScore()
 PostComments()
+StoreDateTimes()
 
 #graph.put_comment(object_id='1031262963672150_1032927990172314', message='Great post...')
 
