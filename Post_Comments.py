@@ -1,7 +1,9 @@
 import facebook
 import json
 import time
+import sentiment_topic_analysis
 
+token = 'EAAX4JJPK6jkBABWBzCB3UsVbT2vqdFLGMCRqIS2Q2CDZCQFW6bRafFc9hxJgWH28uX5X96mdWqZBIRoIwZBNkAZA2VfiYX2lhFq4rMlGVA2PjFU94B9ZAZCBioZA4aXDoqN2VzKj73vBU299aiIOt5BSgz3W22JKbqVyKi235aiMxN8GqpA2l0iTNCEsAIgE58ZD'
 pattern = '%Y %m %d %H:%M:%S'
 AllPosts = [];
 class _Post:
@@ -34,11 +36,18 @@ def PopulatePostClass(_posts):
 
 def PostComments():
     for post in AllPosts:
-        if post.score < 0.4:
-            graph.put_comment(object_id=post.id, message='posterrrrrr' )
+        if post.score < 40:
+            graph.put_comment(object_id=post.id, message='this is under 22' )
 
 
-graph = facebook.GraphAPI(access_token='EAAX4JJPK6jkBAM1wlpIlO91jLT7i3g0xoqZBZAVwQnJpRuZCgywA8hnHXuEydeZBGKRGYclOZBmCxYGnrmcuVEBagJkytCsnIcJ63UdZASZB0DZCgsAMxyz5oG9tXWO6wSK2OHEhPpvCMJj1bXJeSZAc35G66n3VCI0yEHxOgNMs26MOhLNQvZADYs4qVvzBErymIZD', version='2.7')
+def GetScore():
+    for post in AllPosts:
+        score = sentiment_topic_analysis.GetAnaly(post.message)
+        post.score = score
+
+
+
+graph = facebook.GraphAPI(access_token=token, version='2.7')
 attachment =  {
     'name': 'Link name',
     'link': 'https://www.example.com/',
@@ -50,7 +59,8 @@ profile = graph.get_object("1031262963672150")
 posts = graph.get_connections(profile['id'], 'posts')
 
 PopulatePostClass(posts)
-#PostComments()
+GetScore()
+PostComments()
 
 #graph.put_comment(object_id='1031262963672150_1032927990172314', message='Great post...')
 
