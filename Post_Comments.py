@@ -2,8 +2,10 @@ import facebook
 import json
 import time
 import sentiment_analysis
+import Scrape
 
-token = 'EAAX4JJPK6jkBABWBzCB3UsVbT2vqdFLGMCRqIS2Q2CDZCQFW6bRafFc9hxJgWH28uX5X96mdWqZBIRoIwZBNkAZA2VfiYX2lhFq4rMlGVA2PjFU94B9ZAZCBioZA4aXDoqN2VzKj73vBU299aiIOt5BSgz3W22JKbqVyKi235aiMxN8GqpA2l0iTNCEsAIgE58ZD'
+pageID = '1687756434851039'
+token = 'EAAX4JJPK6jkBACzZAkDVZBZAJHKl6Il5Ly8cAtcVJym0JSwtBXLvptHLgGeZCm6AreELWkcgXqbZCdxlqhpy06IwEUXyUt1dqb3IRE5CdYZBVgB7P7r3Qy6KHx9ytbtiOVI5JDnG5L6bruwWpL6vxfZAqTcXrAEd8oAZAjyHiIQ43KSZC7QtZCxP988wK57JwtDswZD'
 pattern = '%Y %m %d %H:%M:%S'
 AllPosts = [];
 class _Post:
@@ -11,7 +13,8 @@ class _Post:
         self.id = id
         self.time = time
         self.message = message
-        self.score = -1.0
+        self.score = 2
+        self.category = ''
 
 def parseResponse(_posts):
     jsonString = str(_posts)
@@ -37,7 +40,8 @@ def PopulatePostClass(_posts):
 def PostComments():
     for post in AllPosts:
         if post.score < 40:
-            graph.put_comment(object_id=post.id, message='this is under 22' )
+            graph.put_comment(object_id=post.id, message=Scrape.GetQuotes(post.category) )
+
 
 
 def GetScore():
@@ -55,7 +59,7 @@ attachment =  {
     'description': 'This is a longer description of the attachment',
     'picture': 'https://www.example.com/thumbnail.jpg'
 }
-profile = graph.get_object("1031262963672150")
+profile = graph.get_object(pageID)
 posts = graph.get_connections(profile['id'], 'posts')
 
 PopulatePostClass(posts)
